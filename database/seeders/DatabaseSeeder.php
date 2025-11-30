@@ -2,24 +2,36 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Specialty;
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\Appointment;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Crear las 6 especialidades reales
+        $specialties = [
+            'Cardiología', 'Pediatría', 'Dermatología', 
+            'Neurología', 'Traumatología', 'Ginecología'
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($specialties as $name) {
+            Specialty::create([
+                'name' => $name,
+                'description' => 'Especialidad médica en ' . $name
+            ]);
+        }
+
+        // 2. Crear 25 Doctores
+        Doctor::factory(25)->create();
+
+        // 3. Crear 80 Pacientes
+        Patient::factory(80)->create();
+
+        // 4. Crear 150 Citas
+        Appointment::factory(150)->create();
     }
 }
